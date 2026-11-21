@@ -1,0 +1,13 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fibabanka — Swarmy incelemesi</title>
+<style>:root{color-scheme:light}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f6f1e7;font:16px "DM Sans",system-ui,sans-serif;color:#1d1a16}
+form{display:grid;gap:12px;width:min(320px,calc(100vw - 32px))}h1{font-size:22px;margin:0 0 4px}input,button{font:inherit;padding:12px 14px;border-radius:10px;border:1px solid #d8cfbf}
+button{background:#FFD700;border-color:#e6c200;font-weight:600;cursor:pointer}#m{min-height:1.2em;color:#9a3b1b;font-size:14px;margin:0}</style></head>
+<body><form id="f"><h1>Fibabanka — Swarmy incelemesi</h1><input id="p" type="password" placeholder="Şifre" autofocus autocomplete="current-password"><button id="b">Aç</button><p id="m"></p></form>
+<script>
+const S="8gAIC2sEUjtQ9s8zhDdQGw==",I="70feDx4xlBeNK5hx",d=s=>Uint8Array.from(atob(s),x=>x.charCodeAt(0));let P=fetch("payload.txt").then(r=>r.text());
+f.onsubmit=async e=>{e.preventDefault();b.disabled=true;m.textContent="Açılıyor…";try{
+const k0=await crypto.subtle.importKey("raw",new TextEncoder().encode(p.value),"PBKDF2",false,["deriveKey"]);
+const k=await crypto.subtle.deriveKey({name:"PBKDF2",salt:d(S),iterations:200000,hash:"SHA-256"},k0,{name:"AES-GCM",length:256},false,["decrypt"]);
+const h=new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:d(I)},k,d(await P)));
+document.open();document.write(h);document.close();}catch(x){m.textContent="Şifre yanlış.";b.disabled=false;}};
+</script></body></html>
